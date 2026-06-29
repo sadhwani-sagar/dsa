@@ -1,0 +1,30 @@
+return the largest number formed by arranging the elements of the given list
+
+ex:- [3,30,34,5,9]
+O/P :- 9534330(int string)
+
+My Approach :- sort the array with respect to unit digit 
+but for test case like [820,82] this approach fails
+
+Generalized approach:-
+Compare the concatenated numbers altogether
+a+b > b+a 
+using comparator(lambda)
+
+Code:-
+auto mycomp = [](int& a, int& b ){
+          string s1 = to_String(a);
+          string s2 = to_string(b);
+          return s1+s2 > s2+s1;
+          }
+
+  sort(nums.begin(),nums.end(),mycomp);
+  for(int num : nums){
+  if(nums[0] == 0)
+  return '0';
+  result = to_string(num)
+  }
+  return result;
+
+tc:- o(nlogn)
+
