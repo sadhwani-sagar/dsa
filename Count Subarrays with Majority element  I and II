@@ -1,0 +1,70 @@
+Given the array i need to return the number of subarrays with majority element as the target 
+
+brute force :-  generate all the subarrays and take a counter of the number of times the target was seen and at last compare it wiht the size of subarray(j-i+1) and count the number of such subarrays
+this method will work for I but not for II due to high constraint values.
+  
+
+code :-
+class Solution {
+public:
+    int countMajoritySubarrays(vector<int>& nums, int target) {
+        int n = nums.size();
+        
+        int count_of_subarrays = 0;
+       
+        
+        for(int i = 0 ; i < n; i++){
+        int count = 0 ;
+            for(int j = i ; j < n ; j++){
+            if(nums[j] ==  target)
+            count++;
+            
+            int length = j - i + 1;
+            if(count > length / 2) count_of_subarrays++;
+            }
+        }
+    return count_of_subarrays;}
+};
+ tc:--> o(n^2)
+
+
+   optimal approach:-
+
+   for every target element do +1 and for non target element we do -1 
+ ex:- [2,2,2,2,7] target = 2;
+      [1,1,1,1,-1]
+      [1,2,3,4,3] ---> cumulative sum array;
+and for every jth element in the cumulative sum at j if at left there are points where cumulative sum is less than that at jth point so the subarray from i to j is a valid subarray 
+
+cum[j] - cum[i-1] > 0 --> cum[j] > cum[i-1]
+
+ we need to check at how many points was the sum less than jth point 
+
+code:-- 
+  class Solution {
+public:
+    long long countMajoritySubarrays(vector<int>& nums, int target) {
+        unordered_map<int,int> mpp;
+        mpp[0] = 1;
+        int cumSum = 0;
+        long long validLeftPoints = 0;
+        long long result = 0;
+        for(int j = 0 ; j < nums.size(); j++){
+            if(nums[j] == target){
+                validLeftPoints += mpp[cumSum];
+                cumSum+=1;
+            }
+            else{
+                cumSum-=1;
+                validLeftPoints -= mpp[cumSum];
+
+            }
+            mpp[cumSum] += 1;
+            result += validLeftPoints;
+        }
+    return result;
+    }
+};
+
+tc: o(n)
+   
