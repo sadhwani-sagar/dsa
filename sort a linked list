@@ -1,3 +1,6 @@
+put in vector sort the vector then put back in LL
+
+
 class Solution {
 public:
     ListNode* sortList(ListNode* head) {
