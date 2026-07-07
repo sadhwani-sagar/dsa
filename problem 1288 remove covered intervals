@@ -1,0 +1,36 @@
+brute force :-
+checking each interval  with every other interval
+o(n^2)
+we need to keep in mind that once an interval is covered we can stop the second loop right there that interval has gotta be removed already
+code:-
+class Solution {
+public:
+    int removeCoveredIntervals(vector<vector<int>>& intervals) {
+        int count = 0;
+        for(int i = 0 ; i < intervals.size(); i++){
+           int a = intervals[i][0];
+           int b = intervals[i][1];
+           bool covered = false;
+            for(int j = 0; j < intervals.size(); j++){
+                if(i == j) continue;
+                int c = intervals[j][0];
+                int d =  intervals[j][1];
+                if(c<=a && b<=d) {
+                covered = true;
+                break;
+                }
+            }
+            if(covered) count++;
+
+        }
+        return intervals.size() -count;
+    }
+};
+
+optimal approach:-
+key idea :-
+we dont know the positions of the intervals so need to sort them . why? because thats where the second loop is working on we need to check each interval with each other
+if we just  sort it we can do it in
+o(nlogn)
+
+code:-
