@@ -1,0 +1,23 @@
+we need to return the number of trailing zeroes in the factorial
+
+brute force :-
+  find the factorial and keep dividing by 10 and keep a count
+ constraints for n are too high n = 10^4
+  optimal approach
+
+2 and 5 make up 10 we need to count the number of 5's from n to 1 to know how many 0's will be made
+
+code:-
+class Solution {
+public:
+    int trailingZeroes(int n) {
+        int ans = 0;
+
+        while (n > 0) {
+            n /= 5;
+            ans += n;
+        }
+
+        return ans;
+    }
+};
