@@ -1,0 +1,45 @@
+given two values low and high i need to return the sequential digits in between low and high 
+sequential numbers are whose next digit is greater than the previous one
+123, 23456, 123456789 etc..
+
+BFS approach using queue :-
+class Solution {
+public:
+    vector<int> sequentialDigits(int low, int high) {
+        queue<int> que;
+        vector<int> ans;
+        for(int i = 1 ; i<=8 ; i++){
+            que.push(i);
+        }
+        while(!que.empty()){
+            int temp = que.front();
+            que.pop();
+            if(temp >= low && temp <= high)
+            ans.push_back(temp);
+
+            int ld = temp % 10;
+            if(ld + 1 <= 9){
+                que.push(temp * 10 + (ld + 1));
+            } 
+        }
+        return ans;
+    }
+};
+
+jugaadu approach:-
+using a vector to store all possible values 
+code:-
+class Solution {
+public:
+    vector<int> sequentialDigits(int low, int high) {
+        vector<int> store = {12,23,34,45,56,67,78,89,123,234,345,456,567,678,789,1234,2345,3456,4567,5678,6789,12345,23456,34567,45678,56789,123456,234567,345678,456789,1234567,2345678,3456789,12345678,23456789,123456789};
+        vector<int> ans;
+     
+      for(int i = 0 ; i < store.size(); i++){
+        if(store[i] < low) continue;
+        if(store[i] > high) break;
+        ans.push_back(store[i]);
+      }
+      return ans;
+    }
+};
